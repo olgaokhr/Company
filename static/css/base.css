@@ -1,0 +1,187 @@
+/* static/css/base.css */
+
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  font-color:rgb(48 48 48);
+  background:rgb(231 231 231);
+}
+
+.wrapper{
+    max-width: 1170px;
+    margin: 0px auto;
+}
+
+header, footer {
+background: rgb(212 212 212);
+ padding: 0 5rem;
+}
+
+h1{
+    font-size: 40px;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 10px 0;
+}
+
+h2{
+    font-size: 36px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+h3{
+    font-size: 20px;
+}
+
+h4{
+    font-size: 18px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+a{
+    color: rgb(48 48 48);
+    text-decoration: none;
+}
+
+a:hover{
+    rgb(48 48 48)
+    text-decoration: none;
+}
+
+i {
+    color: rgb(48 48 48);
+}
+
+.header-content{
+display: grid;
+height: auto;
+grid-template-columns: 9fr 3fr;
+grid-template-rows: auto;
+align-items: center;
+}
+
+.p-button{
+text-align: right;
+}
+
+.p-logo{
+font-size:30px;
+}
+
+header h1 a {
+  color: rgb(48 48 48);
+  text-decoration: none;
+
+}
+
+.nav-left {
+  margin-right: auto;
+}
+
+.nav-left p{
+font-size:20px;}
+
+
+.nav-right {
+  display: flex;
+}
+
+.post-entry {
+  margin-bottom: 2rem;
+}
+
+.post-entry h2 {
+  margin: 0.5rem 0;
+}
+
+.post-entry h2 a,
+.post-entry h2 a:visited {
+  text-decoration: none;
+}
+
+.post-entry p {
+  margin: 0;
+  font-weight: 400;
+}
+
+.post-entry h2 a:hover {
+  text-decoration: none;
+}
+
+.button_new_company{
+background:rgb(254 254 254);
+color:rgb(48 48 48);
+text-decoration: none;
+padding: 0.7rem;
+text-align: center;
+}
+
+.logout{
+width:100%;
+text-align:right;
+font-size:0.8rem;
+padding: 10px 0;
+}
+
+.logout a{
+padding:10px;
+text-decoration:underline;
+}
+
+.link-user{
+font-size:0.8rem;
+text-decoration:underline;
+}
+
+.grid-container {background: rgb(212 212 212); display: grid; height: auto; grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+.grid-container > div {background: rgb(230 230 230);  margin: 0px; padding: 0px; }
+.grid-container > div:nth-of-type(1) {padding: 20px; }
+
+.company-grid{
+display: grid;
+height: auto;
+grid-template-columns: 1fr 1fr 1fr;
+grid-template-rows: auto;
+}
+
+.company-logo{
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
+}
+
+.p-grid-logo{
+text-align: center;
+}
+
+.company-grid > div {background: rgb(254 254 254); margin: 10px; padding: 10px; }
+
+
+.comment {
+    margin: 20px 0px 20px 20px;
+}
+
+.grid-menu {display: grid; height: auto; grid-template-columns: repeat(8, 1fr); grid-template-rows: auto; }
+.grid-menu > div {background: rgb(254 254 254); margin: 10px; padding: 10px; }
+
+.icon_my_company{
+  width: 40px;
+  height: 30px;
+  object-fit: cover;
+}
+
+.grid_my_company {display: grid; height: auto; grid-template-columns: repeat(6, 1fr); grid-template-rows: auto; }
+.grid_my_company > div { margin: 10px; padding: 10px; text-align: center;}
+
+.div_logout {display: grid; height: auto; grid-template-columns: 2fr 8fr; grid-template-rows: auto; }
+.div_logout > div { margin: 10px; padding: 10px; text-align: center;}
+
+.left{
+}
+
+.right{
+float: left;
+}

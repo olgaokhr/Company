@@ -1,0 +1,38 @@
+<!-- templates/post_new.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+<h1>New post</h1>
+<form action="" method="post">{% csrf_token %}
+
+    {{ form.as_p }}
+<!-- <p><b>Company created_by:</b> {{ form.created_by  }}</p>-->
+<!--        <p><b>Company logo:</b> {{ form.logo  }}</p>-->
+<!--        <p><b>Company Title:</b> {{ form.title  }}</p>-->
+<!--        <p><b>Company UNP/INN:</b> {{ form.unp }}</p>-->
+<!--        <p><b>Categories:</b> {{ form.category }}</p>-->
+<!--        <p><b>Company description:</b> {{ form.description }}</p>-->
+<!--        <p><b>Company country:</b> {{ form.country }}</p>-->
+<!--        <p><b>Company city:</b> {{ form.city }}</p>-->
+<!--        <p><b>Company street:</b> {{ form.street }}</p>-->
+<!--        <p><b>Company address:</b> {{ form.address }}</p>-->
+<!--        <p><b>Company dop_address:</b> {{ form.dop_address }}</p>-->
+<!--        <p><b>Company phone:</b> {{ form.phone }}</p>-->
+<!--        <p><b>Company email:</b> {{ form.email }}</p>-->
+<!--        <p><b>Company site:</b> {{ form.site }}form</p>-->
+<!--        <p><b>Company telegram:</b> {{ form.telegram }}</p>-->
+<!--        <p><b>Company viber:</b> {{ form.viber }}</p>-->
+<!--        <p><b>Company whatsapp:</b> {{ form.whatsapp }}</p>-->
+<!--        <p><b>Company instagram:</b> {{ form.instagram }}</p>-->
+<!--        <p><b>Company vk:</b> {{ form.vk }}</p>-->
+<!--        <p><b>Company ok:</b>{{ form.ok }}</p>-->
+<!--        <p><b>Company facebook:</b>{{ form.facebook }}</p>-->
+    <input type="submit" value="Save"/>
+</form>
+{% else %}
+<p><span>You are not logged in. </span><a href="{% url 'login' %}">Log In</a></p>
+<p><span>Register an account </span><a href="{% url 'signup' %}">Registration</a></p>
+{% endif %}
+{% endblock content %}

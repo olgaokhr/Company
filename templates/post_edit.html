@@ -1,0 +1,18 @@
+<!-- templates/post_edit.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+{% if user.is_authenticated%}
+
+<h1>Edit post</h1>
+<form action="" method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Update"/>
+</form>
+{% else %}
+<p><span>You are not logged in. </span><a href="{% url 'login' %}">Log In</a></p>
+<p><span>Register an account </span><a href="{% url 'signup' %}">Registration</a></p>
+{% endif %}
+{% endblock content %}

@@ -1,0 +1,116 @@
+<!-- templates/post_detail.html -->
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class='grid-container'>
+    <div>
+        <p class="p-grid-logo"><img class="company-logo" alt="{{ object.title }}" src="{% static object.logo %}"></p>
+        <h2>{{ object.title }}</h2>
+        <p><b>Company UNP/INN:</b> {{ object.unp }}</p>
+<!--        <p><b>Company categories:</b> {{ object.categories.all }}</p>-->
+
+        <p><b>Categories:</b>
+        {% for category in post.categories.all %}
+        <a href="{% url 'company_category' category.name %}">
+            {{ category.name }}
+        </a>
+        {% endfor %}
+
+
+        <p><b>Company description:</b> {{ object.description }}</p>
+        <p><b>Company country:</b> {{ object.country }}</p>
+        <p><b>Company city:</b> {{ object.city }}</p>
+        <p><b>Company street:</b> {{ object.street }}</p>
+        <p><b>Company address:</b> {{ object.address }}</p>
+        <p><b>Company dop_address:</b> {{ object.dop_address }}</p>
+        <p><b>Company phone:</b> <a href="tel:{{ object.phone }}">{{ object.phone }}</a></p>
+        <p><b>Company email:</b> <a href="mailto:{{ object.email }}">{{ object.email }}</a></p>
+        <p><b>Company site:</b> <a href="{{ object.site }}">{{ object.site }}</a></p>
+        <p><b>Company telegram:</b> <a href="{{ object.telegram }}">{{ object.telegram }}</a></p>
+        <p><b>Company viber:</b> <a href="tel:{{ object.viber }}">{{ object.viber }}</a></p>
+        <p><b>Company whatsapp:</b> <a href="{{ object.whatsapp }}">{{ object.whatsapp }}</a></p>
+        <p><b>Company instagram:</b> <a href="{{ object.instagram }}">{{ object.instagram }}</a></p>
+        <p><b>Company vk:</b> <a href="{{ object.vk }}">{{ object.vk }}</a></p>
+        <p><b>Company ok:</b> <a href="{{ object.ok }}">{{ object.ok }}</a></p>
+        <p><b>Company facebook:</b><a href="{{ object.facebook }}">{{ object.facebook }}</a></p>
+        {% if user.is_authenticated and request.user == post.created_by %}
+        <p><a href="{% url 'post_edit' post.pk %}" class="link-user">+ Edit Blog Post</a></p>
+        <p><a href="{% url 'post_delete' post.pk %}" class="link-user">- Delete Blog Post</a></p>
+
+
+
+        {% else %}
+        {% endif %}
+    </div>
+    <div>
+        <div id="map"></div>
+
+        <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
+
+        <script>
+mapboxgl.accessToken = 'pk.eyJ1Ijoib2x5dW5lY2hrYXZpcCIsImEiOiJja3htOHJ2OXE1OXl0MnhvNTl2NHFqcDU4In0.vxpr93lKzBfVzyCm9JsV4A';
+const mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
+mapboxClient.geocoding
+.forwardGeocode({
+query: '{{ object.country }}, {{ object.city }}, {{ object.street }}, {{ object.address }}',
+autocomplete: false,
+limit: 1
+})
+.send()
+.then((response) => {
+if (
+!response ||
+!response.body ||
+!response.body.features ||
+!response.body.features.length
+) {
+console.error('Invalid response:');
+console.error(response);
+return;
+}
+const feature = response.body.features[0];
+
+const map = new mapboxgl.Map({
+container: 'map',
+style: 'mapbox://styles/olyunechkavip/ckxmzld5244e814krxf2bsdye',
+center: feature.center,
+zoom: 10
+});
+
+// Create a marker and add it to the map.
+new mapboxgl.Marker().setLngLat(feature.center).addTo(map);
+});
+
+
+
+        </script>
+    </div>
+</div>
+<div>
+<p><a class="button_new_company" href="{% url 'add_comment_to_post' pk=post.pk %}">Add review</a></p>
+<br>
+<!--<p><a href="{% url 'post_detail' pk=post.pk %}">Reviews count: {{ post.approved_comments.count }}</a></p>-->
+<p>Reviews: {{ post.comments.count }}</p>
+<br>
+{% for comment in post.comments.all %}
+    {% if user.is_authenticated or comment.approved_comment %}
+    <div class="comment">
+        <div class="date">
+            {{ comment.created_date }}
+            {% if not comment.approved_comment %}
+                <a class="btn btn-default" href="{% url 'comment_remove' pk=comment.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+                <a class="btn btn-default" href="{% url 'comment_approve' pk=comment.pk %}"><span class="glyphicon glyphicon-ok"></span></a>
+            {% endif %}
+        </div>
+        <p><b>{{ comment.author }}: </b> {{ comment.text|linebreaks }}</p>
+<br>
+    </div>
+    {% endif %}
+{% empty %}
+    <p>No reviews here yet :(</p>
+{% endfor %}
+</div>
+
+{% endblock content %}

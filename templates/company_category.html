@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+
+<h1>{{ category | title }}</h1>
+<div class="company-grid">
+    {% for post in posts %}
+      <div class="post-entry">
+        <p class="p-grid-logo"><img class="company-logo" alt="{{ post.title }}" src="{% static post.logo %}"></p>
+        <h2><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h2>
+        <p>{{ post.country }}, {{ post.city }}, {{ post.street }}, {{ post.address }}, {{ post.dop_address }}</p>
+        <p><a href="tel:{{ object.phone }}">{{ post.phone }}</a></p>
+        <p>{{location}}</p>
+        <p><a href="{% url 'post_detail' pk=post.pk %}">Reviews: {{ post.comments.count }}</a></p>
+</div>
+    {% endfor %}
+</div>
+{% endblock %}
