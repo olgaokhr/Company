@@ -2,6 +2,11 @@
 
 {% extends 'base.html' %}
 {% load static %}
+
+{% block title %}{{ object.title }}{% endblock title %}
+{% block description %}{{ object.description }}{% endblock description %}
+
+
 {% block content %}
 
 <div class='grid-container'>
@@ -19,7 +24,7 @@
         {% endfor %}
 
 
-        <p><b>Company description:</b> {{ object.description }}</p>
+        <p><b>Company description:</b> {{ object.text }}</p>
         <p><b>Company country:</b> {{ object.country }}</p>
         <p><b>Company city:</b> {{ object.city }}</p>
         <p><b>Company street:</b> {{ object.street }}</p>

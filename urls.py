@@ -1,7 +1,7 @@
 # company/urls.py
 from django.urls import path
 from .views import CompanyListView, CompanyDetailView, CompanyCreateView, CompanyUpdateView, CompanyDeleteView, \
-    add_comment_to_post, comment_approve, comment_remove, company_category
+    add_comment_to_post, comment_approve, comment_remove, company_category, company_country
 from . import views
 
 urlpatterns = [
@@ -15,8 +15,12 @@ path('comment/<int:pk>/approve/', comment_approve, name='comment_approve'),
 path('comment/<int:pk>/remove/', comment_remove, name='comment_remove'),
    path("<category>/", company_category, name="company_category"),
 path('category/<int:pk>/', company_category, name="company_category"),
+   path("<country>/", company_country, name="company_country"),
+path('country/<int:pk>/', company_country, name="company_country"),
+
    #  path("<username>/", author_posts, name="author_posts"),
 #    path("<author>/", author_posts, name="author_posts"),
 # path('author/<int:pk>/', author_posts, name="author_posts"),
+
 
 ]

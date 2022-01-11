@@ -7,8 +7,13 @@ from django.utils import timezone
 
 class Category(models.Model):
     """Category model."""
+    title = models.CharField(max_length=80, blank=True, help_text='Long <= 80 simbols', verbose_name='SEO Title', )
+    description = models.CharField(max_length=160, blank=True, help_text='Long <= 160 simbols',
+                                   verbose_name='SEO description', )
+
     name = models.CharField(max_length=100, unique=True)
-    slug = models.SlugField(blank=True)
+    slug = models.SlugField(blank=True, unique=True)
+    category = models.ForeignKey('self', blank=True, null=True, on_delete=models.CASCADE, related_name='children')
 
     class Meta:
         ordering = ['name']
@@ -21,12 +26,36 @@ class Category(models.Model):
     def get_absolute_url(self):
         return reverse('company_category', args=[str(self.name)])
 
+
+class Country(models.Model):
+    """Category model."""
+    name = models.CharField(max_length=100, unique=True)
+    slug = models.SlugField(blank=True)
+
+
+    class Meta:
+        ordering = ['name']
+        verbose_name = 'Страна'
+        verbose_name_plural = 'Страны'
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('company_country', args=[str(self.name)])
+
+
 class Post(models.Model):
+    title = models.CharField(max_length=80, blank=True, help_text='Long <= 80 simbols', verbose_name='SEO Title',
+                             )
+    description = models.CharField(max_length=160, blank=True, help_text='Long <= 160 simbols',
+                                   verbose_name='SEO description',  )
+
     created_by = models.ForeignKey( User, on_delete=models.CASCADE, null=True, blank=True,)
-    title = models.CharField("Название компании", max_length=200, default="",  blank=False)
+    name = models.CharField("Название компании", max_length=200, default="",  blank=False)
     unp = models.CharField("УНП/ИНН", max_length=300, default="",  blank=False)
-    description = models.TextField("Описание", max_length=2000, default="", blank=True)
-    country = models.CharField('Страна', max_length=200, default="", blank=False)
+    text = models.TextField("Описание", max_length=2000, default="", blank=True)
+    country = models.ForeignKey(Country, on_delete=models.CASCADE, null=True, related_name='posts')
     city = models.CharField('Город', max_length=200, default="", blank=False)
     street = models.CharField('Улица', max_length=200, default="", blank=False)
     address = models.CharField('Дом', max_length=200, default="", blank=False)

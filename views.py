@@ -35,7 +35,7 @@ class CompanyDetailView(DetailView):
 class CompanyCreateView(CreateView):
     model = Post
     template_name = 'post_new.html'
-    fields = [ 'title', 'unp', 'categories', 'logo', 'description',  'country', 'city', 'street', 'address', 'dop_address', 'phone', 'email', 'site', 'telegram', 'viber', 'whatsapp', 'instagram', 'vk', 'ok', 'facebook',]
+    fields = [ 'name', 'unp', 'categories', 'logo', 'text',  'country', 'city', 'street', 'address', 'dop_address', 'phone', 'email', 'site', 'telegram', 'viber', 'whatsapp', 'instagram', 'vk', 'ok', 'facebook',]
     def form_valid(self, form):
         form.instance.created_by = self.request.user
         return super().form_valid(form)
@@ -43,7 +43,7 @@ class CompanyCreateView(CreateView):
 class CompanyUpdateView(UpdateView):
     model = Post
     template_name = 'post_edit.html'
-    fields = ['title', 'categories', 'unp', 'logo', 'description',  'country', 'city', 'street', 'address', 'dop_address', 'phone', 'email', 'site', 'telegram', 'viber', 'whatsapp', 'instagram', 'vk', 'ok', 'facebook',]
+    fields = ['name', 'categories', 'unp', 'logo', 'text',  'country', 'city', 'street', 'address', 'dop_address', 'phone', 'email', 'site', 'telegram', 'viber', 'whatsapp', 'instagram', 'vk', 'ok', 'facebook',]
 
 
 class CompanyDeleteView(DeleteView):
@@ -83,7 +83,6 @@ def comment_remove(request, pk):
     return redirect('post_detail', pk=comment.post.pk)
 
 def company_category(request, category):
-
     posts = Post.objects.filter(
         categories__name__contains=category
     )
@@ -92,6 +91,17 @@ def company_category(request, category):
         "posts": posts
     }
     return render(request, "company_category.html", context)
+
+def company_country(request, country):
+
+    posts = Post.objects.filter(
+        countries__name__contains=country
+    )
+    context = {
+        "country": country,
+        "posts": posts
+    }
+    return render(request, "company_country.html", context)
 
 
 # def author_posts(request, author):
@@ -105,5 +115,18 @@ def company_category(request, category):
 #     }
 #     return render(request, "author_posts.html", context)
 
-
-
+# def post(request, category_slug=None, subcategory_slug=None):
+#     category=None
+#     subcategory=None
+#     if category_slug:
+#         category=get_object_or_404(Category, slug='category_slug')
+#         if subcategory_slug:
+#             subcategory=get_object_or_404(Category, slug='subcategory_slug')
+#
+#     seodata=Post.objects.all()
+#     context={'seodata':seodata,
+#              'category':category,
+#              'subcategory':subcategory
+#     }
+#
+#     return render(request, 'home.html', context)

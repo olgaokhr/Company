@@ -1,22 +1,22 @@
-<!-- templates/home.html -->
-{% extends 'base.html' %}
+<!--&lt;!&ndash; templates/home.html &ndash;&gt;-->
+<!--{% extends 'base.html' %}-->
 
-{% block content %}
-<h1>{{ author | title }}</h1>
-<div class="company-grid">
-    {% for post in object_list %}
-    {% if user.is_authenticated and request.user == post.created_by %}
-    <div class="post-entry">
-        <p class="p-grid-logo"><img class="company-logo" alt="{{ post.title }}" src="\{{ post.logo}}"></p>
-        <h2><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h2>
-        <p>{{ post.country }}, {{ post.city }}, {{ post.street }}, {{ post.address }}, {{ post.dop_address }}</p>
-        <p>{{ post.phone }}</p>
-        <p>{{ post.email }}</p>
-        {{location}}
-    </div>
-            {% else %}
-        {% endif %}
-    {% endfor %}
-</div>
+<!--{% block content %}-->
+<!--<h1>{{ author | title }}</h1>-->
+<!--<div class="company-grid">-->
+<!--    {% for post in object_list %}-->
+<!--    {% if user.is_authenticated and request.user == post.created_by %}-->
+<!--    <div class="post-entry">-->
+<!--        <p class="p-grid-logo"><img class="company-logo" alt="{{ post.title }}" src="\{{ post.logo}}"></p>-->
+<!--        <h2><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h2>-->
+<!--        <p>{{ post.country }}, {{ post.city }}, {{ post.street }}, {{ post.address }}, {{ post.dop_address }}</p>-->
+<!--        <p>{{ post.phone }}</p>-->
+<!--        <p>{{ post.email }}</p>-->
+<!--        {{location}}-->
+<!--    </div>-->
+<!--            {% else %}-->
+<!--        {% endif %}-->
+<!--    {% endfor %}-->
+<!--</div>-->
 
-{% endblock content %}
+<!--{% endblock content %}-->
