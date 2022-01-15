@@ -14,16 +14,12 @@
         <p class="p-grid-logo"><img class="company-logo" alt="{{ object.title }}" src="{% static object.logo %}"></p>
         <h2>{{ object.title }}</h2>
         <p><b>Company UNP/INN:</b> {{ object.unp }}</p>
-<!--        <p><b>Company categories:</b> {{ object.categories.all }}</p>-->
-
         <p><b>Categories:</b>
-        {% for category in post.categories.all %}
-        <a href="{% url 'company_category' category.name %}">
-            {{ category.name }}
-        </a>
-        {% endfor %}
-
-
+            {% for category in post.categories.all %}
+            <a href="{% url 'company_category' category.name %}">
+                {{ category.name }}
+            </a>
+            {% endfor %}
         <p><b>Company description:</b> {{ object.text }}</p>
         <p><b>Company country:</b> {{ object.country }}</p>
         <p><b>Company city:</b> {{ object.city }}</p>
@@ -43,9 +39,6 @@
         {% if user.is_authenticated and request.user == post.created_by %}
         <p><a href="{% url 'post_edit' post.pk %}" class="link-user">+ Edit Blog Post</a></p>
         <p><a href="{% url 'post_delete' post.pk %}" class="link-user">- Delete Blog Post</a></p>
-
-
-
         {% else %}
         {% endif %}
     </div>
@@ -76,46 +69,44 @@ console.error(response);
 return;
 }
 const feature = response.body.features[0];
-
 const map = new mapboxgl.Map({
 container: 'map',
 style: 'mapbox://styles/olyunechkavip/ckxmzld5244e814krxf2bsdye',
 center: feature.center,
 zoom: 10
 });
-
 // Create a marker and add it to the map.
 new mapboxgl.Marker().setLngLat(feature.center).addTo(map);
 });
-
-
 
         </script>
     </div>
 </div>
 <div>
-<p><a class="button_new_company" href="{% url 'add_comment_to_post' pk=post.pk %}">Add review</a></p>
-<br>
-<!--<p><a href="{% url 'post_detail' pk=post.pk %}">Reviews count: {{ post.approved_comments.count }}</a></p>-->
-<p>Reviews: {{ post.comments.count }}</p>
-<br>
-{% for comment in post.comments.all %}
+    <p><a class="button_new_company" href="{% url 'add_comment_to_post' pk=post.pk %}">Add review</a></p>
+    <br>
+    <!--<p><a href="{% url 'post_detail' pk=post.pk %}">Reviews count: {{ post.approved_comments.count }}</a></p>-->
+    <p>Reviews: {{ post.comments.count }}</p>
+    <br>
+    {% for comment in post.comments.all %}
     {% if user.is_authenticated or comment.approved_comment %}
     <div class="comment">
         <div class="date">
             {{ comment.created_date }}
             {% if not comment.approved_comment %}
-                <a class="btn btn-default" href="{% url 'comment_remove' pk=comment.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
-                <a class="btn btn-default" href="{% url 'comment_approve' pk=comment.pk %}"><span class="glyphicon glyphicon-ok"></span></a>
+            <a class="btn btn-default" href="{% url 'comment_remove' pk=comment.pk %}"><span
+                    class="glyphicon glyphicon-remove"></span></a>
+            <a class="btn btn-default" href="{% url 'comment_approve' pk=comment.pk %}"><span
+                    class="glyphicon glyphicon-ok"></span></a>
             {% endif %}
         </div>
         <p><b>{{ comment.author }}: </b> {{ comment.text|linebreaks }}</p>
-<br>
+        <br>
     </div>
     {% endif %}
-{% empty %}
+    {% empty %}
     <p>No reviews here yet :(</p>
-{% endfor %}
+    {% endfor %}
 </div>
 
 {% endblock content %}

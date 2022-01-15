@@ -85,7 +85,7 @@ def comment_remove(request, pk):
 def company_category(request, category):
     posts = Post.objects.filter(
         categories__name__contains=category
-    )
+    ).order_by('-created_date')
     context = {
         "category": category,
         "posts": posts
